@@ -70,23 +70,6 @@ local function validate_highlight(colour_or_group, needs_opacity)
     if not group or not group.background then
       if needs_opacity and not opacity_warned then
         opacity_warned = true
-        vim.schedule(function()
-          vim.notify("Highlight group '" .. colour_or_group .. [[' has no background highlight
-Please provide an RGB hex value or highlight group with a background value for 'background_colour' option.
-This is the colour that will be used for 100% transparency.
-```lua
-require("notify").setup({
-  background_colour = "#000000",
-})
-```
-Defaulting to #000000]], "warn", {
-            title = "nvim-notify",
-            on_open = function(win)
-              local buf = vim.api.nvim_win_get_buf(win)
-              vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
-            end,
-          })
-        end)
       end
       return "#000000"
     end
